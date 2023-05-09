@@ -19,6 +19,36 @@ class cube:
     [[self.r1,self.r2,self.r3],[self.r4,self.r5,self.r6],[self.r7,self.r8,self.r9]] = right
     [[self.f1,self.f2,self.f3],[self.f4,self.f5,self.f6],[self.f7,self.f8,self.f9]] = front
     [[self.ba1,self.ba2,self.ba3],[self.ba4,self.ba5,self.ba6],[self.ba7,self.ba8,self.ba9]] = back
+    self.solved = False
+    if self.check_side_solved(top) and self.check_side_solved(bottom) and self.check_side_solved(left) and self.check_side_solved(right) and self.check_side_solved(front) and self.check_side_solved(back):
+      self.solved = True
+    else:
+      self.solved = False
+  
+  def check_cube_solved(self):
+    top = [[self.t1,self.t2,self.t3],[self.t4,self.t5,self.t6],[self.t7,self.t8,self.t9]]
+    bottom = [[self.b1,self.b2,self.b3],[self.b4,self.b5,self.b6],[self.b7,self.b8,self.b9]]
+    left = [[self.l1,self.l2,self.l3],[self.l4,self.l5,self.l6],[self.l7,self.l8,self.l9]]
+    right = [[self.r1,self.r2,self.r3],[self.r4,self.r5,self.r6],[self.r7,self.r8,self.r9]]
+    front = [[self.f1,self.f2,self.f3],[self.f4,self.f5,self.f6],[self.f7,self.f8,self.f9]]
+    back = [[self.ba1,self.ba2,self.ba3],[self.ba4,self.ba5,self.ba6],[self.ba7,self.ba8,self.ba9]]
+    if self.check_side_solved(top) and self.check_side_solved(bottom) and self.check_side_solved(left) and self.check_side_solved(right) and self.check_side_solved(front) and self.check_side_solved(back):
+      self.solved = True
+    else:
+      self.solved = False
+
+  # Function to check if a side is solved or not
+  def check_side_solved(self, side):
+    if len(side) == 3 and len(side[0]) == 3:
+      first_val = side[0][0]
+      for row in side:
+        for val in row:
+          if val != first_val:
+            return False
+      else:
+        return True
+    else:
+      return False
   
   # Sub function to draw the rubik's cube at the given axis and color with correct annotation
   def draw_rect(self, axis, color, annotation):
@@ -227,6 +257,7 @@ class cube:
           return
         if x.lower() == "y":
           print(self)
+      self.check_cube_solved()
     except Exception as err:
       print(err)
       return
